@@ -1,17 +1,26 @@
-# StartLite Launcher Releases
+# StartLite Launcher
 
-StartLite Launcher 的公開下載與版本資訊。
+[繁體中文](README.zh-TW.md) · [简体中文](README.zh-CN.md) · [English](README.md) · [日本語](README.ja.md) · [한국어](README.ko.md) · [Deutsch](README.de.md) · [Français](README.fr.md) · [Español](README.es.md) · [Português (Brasil)](README.pt-BR.md) · [Tiếng Việt](README.vi.md) · [ไทย](README.th.md) · [Bahasa Indonesia](README.id.md)
 
-- 下載：[Releases](https://github.com/jkdfzx/StartLiteLauncher-releases/releases/latest)
-- 版本資訊（App 檢查更新用）：https://jkdfzx.github.io/StartLiteLauncher-releases/version.json
+An Android launcher that organizes your apps into a categorized drawer. This repository only hosts the Android app's installation files; it contains no source code.
 
-## version.json
+**[Download for Android](https://github.com/jkdfzx/StartLiteLauncher-releases/releases/latest/download/StartLiteLauncher.apk)** · [Download page (instructions in your language)](https://jkdfzx.github.io/StartLiteLauncher-releases/) · [All versions](https://github.com/jkdfzx/StartLiteLauncher-releases/releases)
 
-| 欄位 | 型別 | 說明 |
-|---|---|---|
-| `latest` | 整數 | 最新版的 versionCode |
-| `latestName` | 字串 | 最新版的 versionName |
-| `minimum` | 整數 | 最低可用的 versionCode；低於它會顯示不能略過的更新提示（不擋畫面）。必須 ≤ `latest`，0 表示不限制 |
-| `downloadUrl` | 字串 | 下載網址（https） |
+Requires Android 11 or later
 
-此檔由 StartLiteLauncher 的 GitHub Actions 自動更新，`minimum` 需要手動修改。
+## First-time installation
+
+1. Open this page on your phone and tap the button above to download StartLiteLauncher.apk.
+2. Open the downloaded file. If you are told apps from unknown sources can't be installed, tap "Settings", allow this source, then go back and continue.
+3. If Play Protect shows a warning, tap "More details" → "Install anyway".
+4. When installation finishes, open StartLite settings and tap "Set as default launcher". The Home button will then take you to StartLite.
+
+## Updating to a new version
+
+Just install the new version over the current app. Don't uninstall the old version first: installing over it keeps your home screen layout, categories and settings, while uninstalling loses them.
+
+## FAQ
+
+- **"App not installed" or "package conflicts with an existing package"**: The app on your phone wasn't downloaded from here (it has a different signature). Export a backup in StartLite settings under "Backup & restore", uninstall the old app, install again, then restore the backup.
+- **The Home button doesn't take me to StartLite**: Open StartLite settings and tap "Set as default launcher", or go to your phone's Settings → Apps → Default apps → Home app and choose StartLite Launcher.
+- **Does StartLite use the internet?**: Only to check for a new version when you open StartLite settings. It never sends any data.

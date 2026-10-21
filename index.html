@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>StartLite Launcher Download</title>
+<meta name="description" content="Download the StartLite Launcher Android app.">
+<style>
+  :root {
+    --bg: #f6f5f2; --surface: #ffffff; --text: #24221f; --muted: #6f6a62;
+    --border: #e2dfd8; --accent: #a8640c; --accent-text: #ffffff; --soft: #fbedd3;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #1a1918; --surface: #242220; --text: #ece9e4; --muted: #a8a299;
+      --border: #3a3733; --accent: #f2b84b; --accent-text: #1a1918; --soft: #3a3020;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font: 16px/1.6 system-ui, -apple-system, "Segoe UI", "Noto Sans", sans-serif;
+  }
+  main { max-width: 640px; margin: 0 auto; padding: 24px 16px 48px; }
+  header { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+  h1 { font-size: 1.6rem; margin: 0; }
+  select {
+    font: inherit; padding: 4px 8px; border-radius: 8px;
+    border: 1px solid var(--border); background: var(--surface); color: var(--text);
+  }
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 20px; margin-top: 20px; }
+  .hero { text-align: center; }
+  .hero p { margin: 4px 0; color: var(--muted); }
+  .download {
+    display: inline-block; margin: 16px 0 8px; padding: 12px 28px; border-radius: 10px;
+    background: var(--accent); color: var(--accent-text); font-weight: 600; font-size: 1.1rem; text-decoration: none;
+  }
+  h2 { font-size: 1.15rem; margin: 0 0 8px; }
+  ol { margin: 0; padding-left: 1.4em; }
+  li + li { margin-top: 6px; }
+  .note { background: var(--soft); border-radius: 10px; padding: 10px 14px; }
+  dt { font-weight: 600; margin-top: 10px; }
+  dd { margin: 2px 0 0; color: var(--muted); }
+  a { color: var(--accent); }
+  footer { margin-top: 24px; text-align: center; color: var(--muted); font-size: 0.9rem; }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>StartLite Launcher</h1>
+    <select id="lang" aria-label="Language"></select>
+  </header>
+
+  <section class="card hero">
+    <p data-t="tagline"></p>
+    <a class="download" href="https://github.com/jkdfzx/StartLiteLauncher-releases/releases/latest/download/StartLiteLauncher.apk" data-t="download"></a>
+    <p id="version"></p>
+    <p data-t="requires"></p>
+  </section>
+
+  <section class="card">
+    <h2 data-t="installTitle"></h2>
+    <ol>
+      <li data-t="step1"></li>
+      <li data-t="step2"></li>
+      <li data-t="step3"></li>
+      <li data-t="step4"></li>
+    </ol>
+  </section>
+
+  <section class="card">
+    <h2 data-t="updateTitle"></h2>
+    <p class="note" data-t="updateText"></p>
+  </section>
+
+  <section class="card">
+    <h2 data-t="faqTitle"></h2>
+    <dl>
+      <dt data-t="conflictQ"></dt>
+      <dd data-t="conflictA"></dd>
+      <dt data-t="defaultQ"></dt>
+      <dd data-t="defaultA"></dd>
+      <dt data-t="internetQ"></dt>
+      <dd data-t="internetA"></dd>
+    </dl>
+  </section>
+
+  <footer><a href="https://github.com/jkdfzx/StartLiteLauncher-releases/releases" data-t="allVersions"></a></footer>
+</main>
+
+<script>
+// 依瀏覽器語言顯示（可手動切換，選擇記在瀏覽器）；語言與 App 相同的 12 種
+// App 內的按鈕名稱（設為預設啟動器、備份與還原）和 App 的翻譯一致
+const TEXT = {
+  'zh-TW': { name: '繁體中文',
+    tagline: '用分類抽屜整理 App 的 Android 啟動器', download: '下載 Android 版', version: '最新版本：{v}', requires: '需要 Android 11 以上',
+    installTitle: '第一次安裝', step1: '用手機開啟這個頁面，點上方的按鈕下載 StartLiteLauncher.apk。', step2: '開啟下載好的檔案。如果出現無法安裝不明來源應用程式的提示，點「設定」，允許這個來源，再返回繼續安裝。', step3: '如果 Play 安全防護跳出提醒，點「更多詳細資料」→「仍要安裝」。', step4: '安裝完成後開啟 StartLite 設定，點「設為預設啟動器」，按主畫面鍵就會回到 StartLite。',
+    updateTitle: '更新到新版', updateText: '下載新版後直接安裝即可，不要先解除安裝舊版。覆蓋安裝會保留桌面版面、分類與設定；先解除安裝的話這些都會不見。',
+    faqTitle: '常見問題', conflictQ: '出現「應用程式未安裝」或「套件與現有套件衝突」', conflictA: '手機上的 App 不是從這裡下載的版本（簽章不同）。請先在 StartLite 設定的「備份與還原」匯出備份，解除安裝舊版、重新安裝後再還原。', defaultQ: '按主畫面鍵沒有回到 StartLite', defaultA: '開啟 StartLite 設定，點「設為預設啟動器」；或到手機的「設定」→「應用程式」→「預設應用程式」→「主畫面應用程式」選擇 StartLite Launcher。', internetQ: 'StartLite 會連網嗎？', internetA: '只會在開啟 StartLite 設定時檢查有沒有新版本，不會傳送任何資料。', allVersions: '所有版本' },
+  'zh-CN': { name: '简体中文',
+    tagline: '用分类抽屉整理应用的 Android 启动器', download: '下载 Android 版', version: '最新版本：{v}', requires: '需要 Android 11 以上',
+    installTitle: '首次安装', step1: '用手机打开这个页面，点击上方按钮下载 StartLiteLauncher.apk。', step2: '打开下载好的文件。如果提示无法安装未知来源的应用，点击“设置”，允许此来源，再返回继续安装。', step3: '如果 Play 保护机制弹出提醒，点击“更多详情”→“仍然安装”。', step4: '安装完成后打开 StartLite 设置，点击“设为默认启动器”，按主屏幕键就会回到 StartLite。',
+    updateTitle: '更新到新版本', updateText: '下载新版本后直接安装即可，不要先卸载旧版本。覆盖安装会保留桌面布局、分类和设置；先卸载的话这些都会丢失。',
+    faqTitle: '常见问题', conflictQ: '提示“未安装应用”或“软件包与现有软件包冲突”', conflictA: '手机上的应用不是从这里下载的版本（签名不同）。请先在 StartLite 设置的“备份与恢复”导出备份，卸载旧版本、重新安装后再恢复。', defaultQ: '按主屏幕键没有回到 StartLite', defaultA: '打开 StartLite 设置，点击“设为默认启动器”；或在手机“设置”→“应用”→“默认应用”→“主屏幕应用”中选择 StartLite Launcher。', internetQ: 'StartLite 会联网吗？', internetA: '只会在打开 StartLite 设置时检查有没有新版本，不会发送任何数据。', allVersions: '所有版本' },
+  'en': { name: 'English',
+    tagline: 'An Android launcher that organizes your apps into a categorized drawer', download: 'Download for Android', version: 'Latest version: {v}', requires: 'Requires Android 11 or later',
+    installTitle: 'First-time installation', step1: 'Open this page on your phone and tap the button above to download StartLiteLauncher.apk.', step2: 'Open the downloaded file. If you are told apps from unknown sources can\'t be installed, tap "Settings", allow this source, then go back and continue.', step3: 'If Play Protect shows a warning, tap "More details" → "Install anyway".', step4: 'When installation finishes, open StartLite settings and tap "Set as default launcher". The Home button will then take you to StartLite.',
+    updateTitle: 'Updating to a new version', updateText: 'Just install the new version over the current app. Don\'t uninstall the old version first: installing over it keeps your home screen layout, categories and settings, while uninstalling loses them.',
+    faqTitle: 'FAQ', conflictQ: '"App not installed" or "package conflicts with an existing package"', conflictA: 'The app on your phone wasn\'t downloaded from here (it has a different signature). Export a backup in StartLite settings under "Backup & restore", uninstall the old app, install again, then restore the backup.', defaultQ: 'The Home button doesn\'t take me to StartLite', defaultA: 'Open StartLite settings and tap "Set as default launcher", or go to your phone\'s Settings → Apps → Default apps → Home app and choose StartLite Launcher.', internetQ: 'Does StartLite use the internet?', internetA: 'Only to check for a new version when you open StartLite settings. It never sends any data.', allVersions: 'All versions' },
+  'ja': { name: '日本語',
+    tagline: 'アプリをカテゴリ別のドロワーで整理できる Android ランチャー', download: 'Android 版をダウンロード', version: '最新バージョン：{v}', requires: 'Android 11 以上が必要です',
+    installTitle: '初めてインストールする場合', step1: 'スマートフォンでこのページを開き、上のボタンから StartLiteLauncher.apk をダウンロードします。', step2: 'ダウンロードしたファイルを開きます。提供元不明のアプリはインストールできないと表示されたら「設定」をタップし、この提供元を許可してから戻って続行します。', step3: 'Play プロテクトの警告が表示されたら「詳細」→「インストールする」をタップします。', step4: 'インストールが終わったら StartLite の設定を開き、「デフォルトのランチャーに設定」をタップします。ホームボタンで StartLite が開くようになります。',
+    updateTitle: '新しいバージョンへの更新', updateText: '新しいバージョンをダウンロードしたら、そのままインストールしてください。先に古いバージョンをアンインストールしないでください。上書きインストールならホーム画面の配置・カテゴリ・設定は保持されますが、アンインストールするとすべて失われます。',
+    faqTitle: 'よくある質問', conflictQ: '「アプリはインストールされていません」「既存のパッケージと競合しています」と表示される', conflictA: '端末のアプリはここからダウンロードしたものではありません（署名が異なります）。StartLite の設定の「バックアップと復元」でバックアップを書き出し、古いアプリをアンインストールして再インストールしてから復元してください。', defaultQ: 'ホームボタンを押しても StartLite が開かない', defaultA: 'StartLite の設定を開いて「デフォルトのランチャーに設定」をタップするか、端末の「設定」→「アプリ」→「デフォルトのアプリ」→「ホームアプリ」で StartLite Launcher を選んでください。', internetQ: 'StartLite はインターネットを使いますか？', internetA: 'StartLite の設定を開いたときに新しいバージョンがあるか確認するだけで、データは一切送信しません。', allVersions: 'すべてのバージョン' },
+  'ko': { name: '한국어',
+    tagline: '앱을 카테고리별 서랍으로 정리하는 Android 런처', download: 'Android용 다운로드', version: '최신 버전: {v}', requires: 'Android 11 이상 필요',
+    installTitle: '처음 설치하기', step1: '휴대전화에서 이 페이지를 열고 위의 버튼을 눌러 StartLiteLauncher.apk를 다운로드합니다.', step2: '다운로드한 파일을 엽니다. 출처를 알 수 없는 앱을 설치할 수 없다는 안내가 나오면 "설정"을 눌러 이 출처를 허용한 뒤 돌아와 계속 설치합니다.', step3: 'Play 프로텍트 경고가 나타나면 "세부정보 더보기" → "무시하고 설치"를 누릅니다.', step4: '설치가 끝나면 StartLite 설정을 열고 "기본 런처로 설정"을 누릅니다. 이제 홈 버튼을 누르면 StartLite로 돌아옵니다.',
+    updateTitle: '새 버전으로 업데이트', updateText: '새 버전을 다운로드한 후 바로 설치하세요. 이전 버전을 먼저 제거하지 마세요. 덮어서 설치하면 홈 화면 배치, 카테고리, 설정이 유지되지만, 먼저 제거하면 모두 사라집니다.',
+    faqTitle: '자주 묻는 질문', conflictQ: '"앱이 설치되지 않았습니다" 또는 "기존 패키지와 충돌합니다"가 표시됨', conflictA: '휴대전화의 앱이 여기에서 다운로드한 버전이 아닙니다(서명이 다름). StartLite 설정의 "백업 및 복원"에서 백업을 내보낸 후, 이전 앱을 제거하고 다시 설치한 다음 복원하세요.', defaultQ: '홈 버튼을 눌러도 StartLite로 돌아오지 않음', defaultA: 'StartLite 설정을 열고 "기본 런처로 설정"을 누르거나, 휴대전화의 "설정" → "애플리케이션" → "기본 앱" → "홈 앱"에서 StartLite Launcher를 선택하세요.', internetQ: 'StartLite는 인터넷을 사용하나요?', internetA: 'StartLite 설정을 열 때 새 버전이 있는지 확인할 때만 사용하며, 어떤 데이터도 보내지 않습니다.', allVersions: '모든 버전' },
+  'de': { name: 'Deutsch',
+    tagline: 'Ein Android-Launcher, der Ihre Apps in einer Schublade mit Kategorien ordnet', download: 'Für Android herunterladen', version: 'Neueste Version: {v}', requires: 'Erfordert Android 11 oder höher',
+    installTitle: 'Erstinstallation', step1: 'Öffnen Sie diese Seite auf dem Smartphone und tippen Sie oben auf die Schaltfläche, um StartLiteLauncher.apk herunterzuladen.', step2: 'Öffnen Sie die heruntergeladene Datei. Wenn Apps aus unbekannten Quellen nicht installiert werden können, tippen Sie auf „Einstellungen“, erlauben Sie diese Quelle und fahren Sie dann fort.', step3: 'Wenn Play Protect eine Warnung anzeigt, tippen Sie auf „Weitere Details“ → „Trotzdem installieren“.', step4: 'Öffnen Sie nach der Installation die StartLite-Einstellungen und tippen Sie auf „Als Standard-Launcher festlegen“. Die Home-Taste führt dann zu StartLite.',
+    updateTitle: 'Auf eine neue Version aktualisieren', updateText: 'Installieren Sie die neue Version einfach über die aktuelle App. Deinstallieren Sie die alte Version nicht vorher: Beim Überinstallieren bleiben Startbildschirm-Layout, Kategorien und Einstellungen erhalten, beim Deinstallieren gehen sie verloren.',
+    faqTitle: 'Häufige Fragen', conflictQ: '„App nicht installiert“ oder „Paket steht in Konflikt mit einem vorhandenen Paket“', conflictA: 'Die App auf Ihrem Gerät stammt nicht von hier (andere Signatur). Exportieren Sie in den StartLite-Einstellungen unter „Sichern & wiederherstellen“ eine Sicherung, deinstallieren Sie die alte App, installieren Sie neu und stellen Sie die Sicherung wieder her.', defaultQ: 'Die Home-Taste führt nicht zu StartLite', defaultA: 'Öffnen Sie die StartLite-Einstellungen und tippen Sie auf „Als Standard-Launcher festlegen“, oder wählen Sie in den Einstellungen des Geräts unter Apps → Standard-Apps → Start-App StartLite Launcher aus.', internetQ: 'Nutzt StartLite das Internet?', internetA: 'Nur um beim Öffnen der StartLite-Einstellungen nach einer neuen Version zu suchen. Es werden keine Daten gesendet.', allVersions: 'Alle Versionen' },
+  'fr': { name: 'Français',
+    tagline: 'Un lanceur Android qui range vos applis dans un tiroir par catégories', download: 'Télécharger pour Android', version: 'Dernière version : {v}', requires: 'Nécessite Android 11 ou version ultérieure',
+    installTitle: 'Première installation', step1: 'Ouvrez cette page sur votre téléphone et touchez le bouton ci-dessus pour télécharger StartLiteLauncher.apk.', step2: 'Ouvrez le fichier téléchargé. S\'il est indiqué que les applis de sources inconnues ne peuvent pas être installées, touchez « Paramètres », autorisez cette source, puis revenez et continuez.', step3: 'Si Play Protect affiche un avertissement, touchez « Plus de détails » → « Installer quand même ».', step4: 'Une fois l\'installation terminée, ouvrez les paramètres de StartLite et touchez « Définir comme lanceur par défaut ». Le bouton Accueil ouvrira alors StartLite.',
+    updateTitle: 'Mettre à jour', updateText: 'Installez simplement la nouvelle version par-dessus l\'appli actuelle, sans désinstaller l\'ancienne. L\'installation par-dessus conserve la disposition de l\'écran d\'accueil, les catégories et les paramètres ; une désinstallation les ferait perdre.',
+    faqTitle: 'Questions fréquentes', conflictQ: '« Application non installée » ou « le package est en conflit avec un package existant »', conflictA: 'L\'appli de votre téléphone ne provient pas d\'ici (signature différente). Exportez une sauvegarde dans les paramètres de StartLite, rubrique « Sauvegarde et restauration », désinstallez l\'ancienne appli, réinstallez-la puis restaurez la sauvegarde.', defaultQ: 'Le bouton Accueil n\'ouvre pas StartLite', defaultA: 'Ouvrez les paramètres de StartLite et touchez « Définir comme lanceur par défaut », ou allez dans Paramètres du téléphone → Applications → Applications par défaut → Application d\'accueil et choisissez StartLite Launcher.', internetQ: 'StartLite utilise-t-il Internet ?', internetA: 'Uniquement pour vérifier s\'il existe une nouvelle version quand vous ouvrez les paramètres de StartLite. Aucune donnée n\'est envoyée.', allVersions: 'Toutes les versions' },
+  'es': { name: 'Español',
+    tagline: 'Un launcher para Android que organiza tus apps en un cajón por categorías', download: 'Descargar para Android', version: 'Última versión: {v}', requires: 'Requiere Android 11 o posterior',
+    installTitle: 'Primera instalación', step1: 'Abre esta página en el teléfono y toca el botón de arriba para descargar StartLiteLauncher.apk.', step2: 'Abre el archivo descargado. Si se indica que no se pueden instalar apps de orígenes desconocidos, toca «Ajustes», permite este origen y vuelve para continuar.', step3: 'Si Play Protect muestra una advertencia, toca «Más detalles» → «Instalar de todas formas».', step4: 'Cuando termine la instalación, abre los ajustes de StartLite y toca «Establecer como launcher predeterminado». El botón de inicio te llevará a StartLite.',
+    updateTitle: 'Actualizar a una nueva versión', updateText: 'Instala la nueva versión directamente sobre la app actual, sin desinstalar la anterior. Así se conservan el diseño de la pantalla de inicio, las categorías y los ajustes; si desinstalas primero, se perderán.',
+    faqTitle: 'Preguntas frecuentes', conflictQ: '«No se ha instalado la app» o «el paquete entra en conflicto con un paquete existente»', conflictA: 'La app del teléfono no se descargó de aquí (firma distinta). Exporta una copia en los ajustes de StartLite, en «Copia de seguridad y restauración», desinstala la app anterior, vuelve a instalarla y restaura la copia.', defaultQ: 'El botón de inicio no me lleva a StartLite', defaultA: 'Abre los ajustes de StartLite y toca «Establecer como launcher predeterminado», o ve a Ajustes del teléfono → Aplicaciones → Aplicaciones predeterminadas → Aplicación de inicio y elige StartLite Launcher.', internetQ: '¿StartLite usa Internet?', internetA: 'Solo para comprobar si hay una versión nueva al abrir los ajustes de StartLite. Nunca envía ningún dato.', allVersions: 'Todas las versiones' },
+  'pt-BR': { name: 'Português (Brasil)',
+    tagline: 'Um launcher para Android que organiza seus apps em uma gaveta por categorias', download: 'Baixar para Android', version: 'Versão mais recente: {v}', requires: 'Requer Android 11 ou mais recente',
+    installTitle: 'Primeira instalação', step1: 'Abra esta página no celular e toque no botão acima para baixar o StartLiteLauncher.apk.', step2: 'Abra o arquivo baixado. Se aparecer que apps de fontes desconhecidas não podem ser instalados, toque em "Configurações", permita esta fonte e volte para continuar.', step3: 'Se o Play Protect mostrar um aviso, toque em "Mais detalhes" → "Instalar mesmo assim".', step4: 'Quando a instalação terminar, abra os ajustes do StartLite e toque em "Definir como launcher padrão". O botão de início passará a abrir o StartLite.',
+    updateTitle: 'Atualizar para uma nova versão', updateText: 'Basta instalar a nova versão sobre o app atual, sem desinstalar a antiga. Assim o layout da tela inicial, as categorias e os ajustes são mantidos; se desinstalar antes, tudo isso será perdido.',
+    faqTitle: 'Perguntas frequentes', conflictQ: '"App não instalado" ou "o pacote está em conflito com um pacote existente"', conflictA: 'O app do celular não foi baixado daqui (assinatura diferente). Exporte um backup nos ajustes do StartLite, em "Backup e restauração", desinstale o app antigo, instale novamente e restaure o backup.', defaultQ: 'O botão de início não abre o StartLite', defaultA: 'Abra os ajustes do StartLite e toque em "Definir como launcher padrão", ou vá em Configurações do celular → Apps → Apps padrão → App de início e escolha StartLite Launcher.', internetQ: 'O StartLite usa a internet?', internetA: 'Só para verificar se há uma nova versão quando você abre os ajustes do StartLite. Nenhum dado é enviado.', allVersions: 'Todas as versões' },
+  'vi': { name: 'Tiếng Việt',
+    tagline: 'Trình chạy Android sắp xếp ứng dụng vào ngăn kéo theo danh mục', download: 'Tải xuống cho Android', version: 'Phiên bản mới nhất: {v}', requires: 'Yêu cầu Android 11 trở lên',
+    installTitle: 'Cài đặt lần đầu', step1: 'Mở trang này trên điện thoại và nhấn nút ở trên để tải StartLiteLauncher.apk.', step2: 'Mở tệp đã tải. Nếu thấy thông báo không thể cài ứng dụng từ nguồn không xác định, nhấn "Cài đặt", cho phép nguồn này rồi quay lại để tiếp tục.', step3: 'Nếu Play Protect hiện cảnh báo, nhấn "Thông tin chi tiết khác" → "Vẫn cài đặt".', step4: 'Cài đặt xong, mở phần cài đặt StartLite và nhấn "Đặt làm trình chạy mặc định". Từ đó nút Màn hình chính sẽ đưa bạn về StartLite.',
+    updateTitle: 'Cập nhật phiên bản mới', updateText: 'Chỉ cần cài phiên bản mới đè lên ứng dụng hiện tại, đừng gỡ cài đặt bản cũ trước. Cài đè sẽ giữ bố cục màn hình chính, danh mục và cài đặt; nếu gỡ trước, tất cả sẽ bị mất.',
+    faqTitle: 'Câu hỏi thường gặp', conflictQ: '"Chưa cài đặt ứng dụng" hoặc "gói xung đột với gói hiện có"', conflictA: 'Ứng dụng trên điện thoại không được tải từ đây (chữ ký khác). Hãy xuất bản sao lưu trong cài đặt StartLite, mục "Sao lưu & khôi phục", gỡ ứng dụng cũ, cài lại rồi khôi phục bản sao lưu.', defaultQ: 'Nhấn nút Màn hình chính không về StartLite', defaultA: 'Mở phần cài đặt StartLite và nhấn "Đặt làm trình chạy mặc định", hoặc vào Cài đặt của điện thoại → Ứng dụng → Ứng dụng mặc định → Ứng dụng màn hình chính và chọn StartLite Launcher.', internetQ: 'StartLite có dùng Internet không?', internetA: 'Chỉ để kiểm tra phiên bản mới khi bạn mở phần cài đặt StartLite. Không gửi bất kỳ dữ liệu nào.', allVersions: 'Tất cả phiên bản' },
+  'th': { name: 'ไทย',
+    tagline: 'ตัวเรียกใช้งาน Android ที่จัดแอปไว้ในลิ้นชักตามหมวดหมู่', download: 'ดาวน์โหลดสำหรับ Android', version: 'เวอร์ชันล่าสุด: {v}', requires: 'ต้องใช้ Android 11 ขึ้นไป',
+    installTitle: 'ติดตั้งครั้งแรก', step1: 'เปิดหน้านี้บนโทรศัพท์ แล้วแตะปุ่มด้านบนเพื่อดาวน์โหลด StartLiteLauncher.apk', step2: 'เปิดไฟล์ที่ดาวน์โหลด หากมีข้อความว่าไม่สามารถติดตั้งแอปจากแหล่งที่ไม่รู้จัก ให้แตะ "การตั้งค่า" อนุญาตแหล่งนี้ แล้วกลับมาติดตั้งต่อ', step3: 'หาก Play Protect แสดงคำเตือน ให้แตะ "รายละเอียดเพิ่มเติม" → "ติดตั้งต่อไป"', step4: 'เมื่อติดตั้งเสร็จ ให้เปิดการตั้งค่า StartLite แล้วแตะ "ตั้งเป็นตัวเรียกใช้งานเริ่มต้น" จากนั้นปุ่มหน้าแรกจะพากลับมาที่ StartLite',
+    updateTitle: 'อัปเดตเป็นเวอร์ชันใหม่', updateText: 'ติดตั้งเวอร์ชันใหม่ทับแอปเดิมได้เลย ไม่ต้องถอนการติดตั้งเวอร์ชันเก่าก่อน การติดตั้งทับจะเก็บการจัดหน้าจอหลัก หมวดหมู่ และการตั้งค่าไว้ แต่ถ้าถอนการติดตั้งก่อน ทั้งหมดจะหายไป',
+    faqTitle: 'คำถามที่พบบ่อย', conflictQ: '"ไม่ได้ติดตั้งแอป" หรือ "แพ็กเกจขัดแย้งกับแพ็กเกจที่มีอยู่"', conflictA: 'แอปในโทรศัพท์ไม่ได้ดาวน์โหลดจากที่นี่ (ลายเซ็นต่างกัน) ให้ส่งออกข้อมูลสำรองในการตั้งค่า StartLite หัวข้อ "สำรองและกู้คืน" ถอนการติดตั้งแอปเก่า ติดตั้งใหม่ แล้วกู้คืนข้อมูลสำรอง', defaultQ: 'กดปุ่มหน้าแรกแล้วไม่กลับมาที่ StartLite', defaultA: 'เปิดการตั้งค่า StartLite แล้วแตะ "ตั้งเป็นตัวเรียกใช้งานเริ่มต้น" หรือไปที่การตั้งค่าของโทรศัพท์ → แอป → แอปเริ่มต้น → แอปหน้าแรก แล้วเลือก StartLite Launcher', internetQ: 'StartLite ใช้อินเทอร์เน็ตหรือไม่', internetA: 'ใช้เพียงตรวจสอบเวอร์ชันใหม่เมื่อเปิดการตั้งค่า StartLite เท่านั้น และไม่ส่งข้อมูลใด ๆ', allVersions: 'ทุกเวอร์ชัน' },
+  'id': { name: 'Bahasa Indonesia',
+    tagline: 'Launcher Android yang merapikan aplikasi ke dalam laci berdasarkan kategori', download: 'Unduh untuk Android', version: 'Versi terbaru: {v}', requires: 'Memerlukan Android 11 atau yang lebih baru',
+    installTitle: 'Pemasangan pertama', step1: 'Buka halaman ini di ponsel, lalu ketuk tombol di atas untuk mengunduh StartLiteLauncher.apk.', step2: 'Buka file yang diunduh. Jika muncul pesan bahwa aplikasi dari sumber tidak dikenal tidak dapat dipasang, ketuk "Setelan", izinkan sumber ini, lalu kembali dan lanjutkan.', step3: 'Jika Play Protect menampilkan peringatan, ketuk "Detail selengkapnya" → "Tetap instal".', step4: 'Setelah selesai, buka setelan StartLite lalu ketuk "Jadikan launcher default". Tombol Beranda akan membuka StartLite.',
+    updateTitle: 'Memperbarui ke versi baru', updateText: 'Cukup pasang versi baru di atas aplikasi saat ini, jangan copot pemasangan versi lama dulu. Memasang di atasnya akan menyimpan tata letak layar utama, kategori, dan setelan; jika dicopot dulu, semuanya akan hilang.',
+    faqTitle: 'Pertanyaan umum', conflictQ: '"Aplikasi tidak terpasang" atau "paket bertentangan dengan paket yang ada"', conflictA: 'Aplikasi di ponsel tidak diunduh dari sini (tanda tangan berbeda). Ekspor cadangan di setelan StartLite pada "Cadangkan & pulihkan", copot aplikasi lama, pasang lagi, lalu pulihkan cadangan.', defaultQ: 'Tombol Beranda tidak membuka StartLite', defaultA: 'Buka setelan StartLite lalu ketuk "Jadikan launcher default", atau buka Setelan ponsel → Aplikasi → Aplikasi default → Aplikasi layar utama dan pilih StartLite Launcher.', internetQ: 'Apakah StartLite memakai internet?', internetA: 'Hanya untuk memeriksa versi baru saat Anda membuka setelan StartLite. Tidak ada data yang dikirim.', allVersions: 'Semua versi' },
+};
+
+const LANG_KEY = 'startlitelauncher.downloadLang';
+
+/** 瀏覽器語言對應到上面的語言：繁體（台灣、香港、澳門、Hant）、簡體、pt → pt-BR，其餘取主語言，找不到用英文 */
+function detectLanguage() {
+  try {
+    const saved = localStorage.getItem(LANG_KEY);
+    if (saved && TEXT[saved]) return saved;
+  } catch (e) {}
+  for (const raw of navigator.languages || [navigator.language || 'en']) {
+    const tag = raw.toLowerCase();
+    if (tag.startsWith('zh')) return /hant|tw|hk|mo/.test(tag) ? 'zh-TW' : 'zh-CN';
+    if (tag.startsWith('pt')) return 'pt-BR';
+    const base = tag.split('-')[0];
+    if (TEXT[base]) return base;
+  }
+  return 'en';
+}
+
+let latestVersion = '';
+
+function render(lang) {
+  const text = TEXT[lang];
+  document.documentElement.lang = lang;
+  document.title = 'StartLite Launcher — ' + text.download;
+  document.querySelectorAll('[data-t]').forEach((el) => { el.textContent = text[el.dataset.t]; });
+  document.getElementById('version').textContent = latestVersion ? text.version.replace('{v}', latestVersion) : '';
+}
+
+const select = document.getElementById('lang');
+for (const [code, text] of Object.entries(TEXT)) select.add(new Option(text.name, code));
+let current = detectLanguage();
+select.value = current;
+select.addEventListener('change', () => {
+  current = select.value;
+  try { localStorage.setItem(LANG_KEY, current); } catch (e) {}
+  render(current);
+});
+render(current);
+
+// 最新版本號：讀同一個網站的 version.json（和 App 檢查更新相同）；讀不到時不顯示，不影響下載
+fetch('version.json', { cache: 'no-store' })
+  .then((res) => (res.ok ? res.json() : null))
+  .then((info) => {
+    if (info && info.latestName) {
+      latestVersion = info.latestName;
+      render(current);
+    }
+  })
+  .catch(() => {});
+</script>
+</body>
+</html>
