@@ -1,0 +1,23 @@
+name: Check version.json
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: 檢查格式
+        run: |
+          jq -e '
+            (.latest | type == "number" and . == floor and . > 0) and
+            (.latestName | type == "string" and length > 0) and
+            (.minimum | type == "number" and . == floor and . >= 0) and
+            (.downloadUrl | type == "string" and startswith("https://")) and
+            (keys - ["latest","latestName","minimum","downloadUrl"] | length == 0)
+          ' version.json > /dev/null || { echo "version.json 格式錯誤"; exit 1; }
+      - name: 檢查 minimum 不大於 latest
+        run: |
+          jq -e '.minimum <= .latest' version.json > /dev/null || { echo "minimum 大於 latest"; exit 1; }
